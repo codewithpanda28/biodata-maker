@@ -5,6 +5,8 @@ const navLinks = document.querySelector('.nav-links');
 const menuOverlay = document.querySelector('.menu-overlay');
 const hero = document.querySelector('.hero');
 const navItems = document.querySelectorAll('.nav-links li');
+const photoUpload = document.getElementById('photoUpload');
+const photoInput = document.getElementById('photoInput');
 
 // Toggle mobile menu with improved animations
 menuIcon.addEventListener('click', () => {
@@ -47,6 +49,44 @@ links.forEach(link => {
     });
 });
 
+// Photo upload functionality
+if (photoUpload && photoInput) {
+    photoUpload.addEventListener('click', () => {
+        photoInput.click();
+    });
+    
+    photoInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Create image preview
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                img.style.objectFit = 'contain';
+                
+                // Clear placeholder and add image
+                const placeholder = photoUpload.querySelector('.upload-placeholder');
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+                
+                // Remove any previous image
+                const oldImg = photoUpload.querySelector('img');
+                if (oldImg) {
+                    oldImg.remove();
+                }
+                
+                photoUpload.appendChild(img);
+            };
+            
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+}
+
 // Smooth page load animations
 document.addEventListener('DOMContentLoaded', () => {
     // Elements are already animated via CSS animations
@@ -58,6 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fix any potential horizontal scroll issues
     document.documentElement.style.overflowX = 'hidden';
     document.body.style.overflowX = 'hidden';
+    
+    // Fix for menu auto-opening issue
+    // Make sure menu is closed on page load
+    navLinks.classList.remove('active');
+    closeIcon.classList.remove('active');
+    menuOverlay.classList.remove('active');
+    menuIcon.style.display = 'block';
 });
 
 // Check window size and adjust layout if needed
@@ -184,67 +231,80 @@ window.addEventListener('orientationchange', () => {
     }, 100); // Small delay to ensure DOM has updated
 });
 
-// Optimize animations for better performance
-const templates = document.querySelectorAll('.template');
-const ringIcon = document.querySelector('.ring-icon');
+// How It Works section animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
 
-// Use requestAnimationFrame for smoother animations if browser supports it
-if (window.requestAnimationFrame) {
-    let lastScrollTop = 0;
-    
-    function parallaxScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    // Animate elements when they come into view
+    function animateOnScroll() {
+        const section = document.querySelector('.how-it-works-section');
         
-        if (scrollTop !== lastScrollTop) {
-            // Only update if scroll position changed
-            if (window.innerWidth > 768) {
-                // Apply parallax effect only on larger screens
-                templates.forEach(template => {
-                    const speed = template.classList.contains('template-1') ? 0.2 : 0.1;
-                    const yPos = -(scrollTop * speed);
-                    const rotation = template.classList.contains('template-1') ? 10 : -5;
-                    template.style.transform = `translateY(${yPos}px) rotate(${rotation}deg)`;
-                });
-                
-                ringIcon.style.transform = `rotate(${scrollTop * 0.1}deg)`;
+        if (section && isInViewport(section)) {
+            const title = document.querySelector('.section-title');
+            const steps = document.querySelectorAll('.step-card');
+            const arrows = document.querySelectorAll('.step-arrow');
+            
+            // Animate title
+            if (title) {
+                title.classList.add('animate');
             }
             
-            lastScrollTop = scrollTop;
+            // Animate steps with delay
+            if (steps.length) {
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.classList.add('animate');
+                    }, 200 * index);
+                });
+            }
+            
+            // Animate arrows with delay
+            if (arrows.length) {
+                arrows.forEach((arrow, index) => {
+                    setTimeout(() => {
+                        arrow.classList.add('animate');
+                    }, 600 + (200 * index));
+                });
+            }
         }
         
-        requestAnimationFrame(parallaxScroll);
+        // Also animate Wedding Journey section
+        const journeySection = document.querySelector('.wedding-journey-section');
+        if (journeySection && isInViewport(journeySection)) {
+            journeySection.classList.add('animate');
+        }
+    }
+
+    // Handle responsive layout for arrows
+    function handleResponsiveLayout() {
+        const windowWidth = window.innerWidth;
+        const arrows = document.querySelectorAll('.step-arrow');
+        
+        if (windowWidth <= 576) {
+            // For very small screens, hide arrows
+            arrows.forEach(arrow => {
+                arrow.style.display = 'none';
+            });
+        } else {
+            // Show arrows on larger screens
+            arrows.forEach(arrow => {
+                arrow.style.display = 'flex';
+            });
+        }
     }
     
-    requestAnimationFrame(parallaxScroll);
-}
-
-// Preload images for smoother experience
-function preloadImages() {
-    const imageSources = [
-        'Assets/Hero/Template above.svg',
-        'Assets/Hero/Template below.svg',
-        'Assets/Hero/Man and Women.svg',
-        'Assets/Hero/Ring.svg'
-    ];
+    // Run animations on load and scroll
+    animateOnScroll();
+    window.addEventListener('scroll', animateOnScroll);
     
-    imageSources.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-}
-
-// Run preload after initial page load
-window.addEventListener('load', () => {
-    preloadImages();
-    
-    // Final check to ensure no horizontal scrollbar
-    setTimeout(() => {
-        document.documentElement.style.overflowX = 'hidden';
-        document.body.style.overflowX = 'hidden';
-        
-        // Apply mobile layout immediately if needed
-        if (window.innerWidth <= 768) {
-            adjustTemplatePositions();
-        }
-    }, 500);
+    // Run responsive layout on load and resize
+    handleResponsiveLayout();
+    window.addEventListener('resize', handleResponsiveLayout);
 });
