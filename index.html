@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -16,29 +18,29 @@
     <div class="right-circle"></div>
 
     <header>
-      <nav class="navbar">
-    <div class="logo">
-        <img src="Assets/Navbar/Logo Image.svg" alt="Logo">
-        <span><img src="Assets/Navbar/Logo Text.svg" alt="MakeBiodata"></span>
-    </div>
-    
-    <div class="menu-icon">
-        <i class="fas fa-bars"></i>
-    </div>
-    
-    <div class="close-icon">
-        <i class="fas fa-times"></i>
-    </div>
-    
-    <div class="menu-overlay"></div>
-    
-    <ul class="nav-links">
-        <li><a href="#"><span>Templates</span></a></li>
-        <li><a href="#"><span>Features</span></a></li>
-        <li><a href="#"><span>FAQ</span></a></li>
-        <li><a href="#"><span>Blogs</span></a></li>
-    </ul>
-</nav>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Assets/Navbar/Logo Image.svg" alt="Logo">
+                <span><img src="Assets/Navbar/Logo Text.svg" alt="MakeBiodata"></span>
+            </div>
+
+            <div class="menu-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="close-icon">
+                <i class="fas fa-times"></i>
+            </div>
+
+            <div class="menu-overlay"></div>
+
+            <ul class="nav-links">
+                <li><a href="#"><span>Templates</span></a></li>
+                <li><a href="#"><span>Features</span></a></li>
+                <li><a href="#"><span>FAQ</span></a></li>
+                <li><a href="#"><span>Blogs</span></a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -93,7 +95,7 @@
             </div>
         </section>
 
-        <!-- How It Works Section - Updated -->
+        <!-- How It Works Section -->
         <section class="how-it-works-section">
             <div class="right-blob">
                 <img src="Assets/Howitsworks/rightImage.png" alt="">
@@ -130,7 +132,7 @@
                 </div>
 
                 <!-- Arrow 2 -->
-                <div class="step-arrow ">
+                <div class="step-arrow arrow2 ">
                     <img src="Assets/Howitsworks/second arrow.svg" alt="">
                 </div>
 
@@ -165,20 +167,15 @@
                         C1200,15 1230,25 1260,20 
                         C1290,15 1320,25 1350,20 
                         C1380,15 1410,25 1440,20 
-                        L1440,50 L0,50 Z"
-                        stroke="#000000" 
-                        stroke-width="2" 
-                        fill="#FFD6E0" />
+                        L1440,50 L0,50 Z" stroke="#000000" stroke-width="2" fill="#FFD6E0" />
                 </svg>
             </div>
         </section>
 
         <!-- Begin your Wedding Journey Section -->
         <section class="wedding-journey-section">
-       
-
             <div class="journey-content">
-                <h2 class="journey-title">Begin your Wedding Journey</h2>
+                <h2 class="journey-title">Begin your Wedding <br> Journey</h2>
                 <p class="journey-subtitle">Craft your biodata with elegance, tradition and love</p>
 
                 <div class="biodata-form-container">
@@ -188,81 +185,282 @@
                     <div class="ring-icon-right">
                         <img src="Assets/BeginJourney/Up Ring.png" alt="Right Ring">
                     </div>
-                    
+
+                    <!-- Multi-step form container -->
                     <div class="biodata-form">
+                        <!-- Left side - Form content that changes -->
                         <div class="form-left">
-                            <div class="form-section">
-                                <h3 class="form-section-title">
-                                    <span class="user-icon"><i class="fas fa-user-circle"></i></span>
-                                    Personal Details
-                                </h3>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" id="name" placeholder="Enter Your Name">
+                            <!-- Step 1: Personal Details -->
+                            <div class="form-step" data-step="1">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">
+                                        <span class="user-icon"><i class="fas fa-user-circle"></i></span>
+                                        Personal Details
+                                    </h3>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" placeholder="Enter Your Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dob">Date of Birth</label>
+                                            <input type="date" id="dob" placeholder="DD/MM/YYYY">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="dob">Date of Birth</label>
-                                        <input type="date" id="dob" placeholder="DD/MM/YYYY">
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="pob">Place of Birth</label>
+                                            <input type="text" id="pob" placeholder="Enter Place of Birth">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tob">Time of Birth</label>
+                                            <input type="time" id="tob" placeholder="00:00 AM">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="height">Height</label>
+                                            <input type="text" id="height" placeholder="Enter Your Height">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="weight">Weight</label>
+                                            <input type="text" id="weight" placeholder="Enter Your Weight">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="blood">Blood Group</label>
+                                            <select id="blood">
+                                                <option value="">Select Blood Group</option>
+                                                <option value="A+">A+</option>
+                                                <option value="A-">A-</option>
+                                                <option value="B+">B+</option>
+                                                <option value="B-">B-</option>
+                                                <option value="AB+">AB+</option>
+                                                <option value="AB-">AB-</option>
+                                                <option value="O+">O+</option>
+                                                <option value="O-">O-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button class="next-button" data-next="2">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Marital Status -->
+                            <div class="form-step" data-step="2">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">
+                                        <img src="Assets/BeginJourney/martial status.png" alt="Never Married">
+                                        Marital Status
+                                    </h3>
+
+                                    <div class="marital-options">
+                                        <div class="marital-option" data-value="never-married">
+                                            <div class="option-icon">
+                                                <img src="Assets/BeginJourney/never married.png" alt="Never Married">
+                                            </div>
+                                            <p>Never Married</p>
+                                        </div>
+
+                                        <div class="marital-option" data-value="divorced">
+                                            <div class="option-icon">
+                                                <img src="Assets/BeginJourney/Divorce.png" alt="Divorced">
+                                            </div>
+                                            <p>Divorced</p>
+                                        </div>
+
+                                        <div class="marital-option" data-value="widowed">
+                                            <div class="option-icon">
+                                                <img src="Assets/BeginJourney/widowed.png" alt="Widowed">
+                                            </div>
+                                            <p>Widowed</p>
+                                        </div>
+
+                                        <div class="marital-option" data-value="separated">
+                                            <div class="option-icon">
+                                                <img src="Assets/BeginJourney/seprated.png" alt="Separated">
+                                            </div>
+                                            <p>Separated</p>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" id="maritalStatus" name="maritalStatus">
+
+                                    <div class="form-navigation">
+                                        <button class="back-button" data-prev="1">Back</button>
+                                        <button class="next-button" data-next="3">Next</button>
                                     </div>
                                 </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="pob">Place of Birth</label>
-                                        <input type="text" id="pob" placeholder="Enter Place of Birth">
+                            </div>
+
+                            <!-- Step 3: Educational Details -->
+                            <div class="form-step" data-step="3">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">
+                                        <span class="user-icon"><i class="fas fa-graduation-cap"></i></span>
+                                        Educational Details
+                                    </h3>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="education">Education</label>
+                                            <input type="text" id="education"
+                                                placeholder="Enter Your Highest Education">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="profession">Profession</label>
+                                            <input type="text" id="profession" placeholder="Enter Your Profession">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="tob">Time of Birth</label>
-                                        <input type="time" id="tob" placeholder="00:00 AM">
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="income">Annual Income</label>
+                                            <input type="text" id="income" placeholder="Enter Your Annual Income">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="company">Company/Organization</label>
+                                            <input type="text" id="company"
+                                                placeholder="Enter your Company/Organization Name">
+                                        </div>
+                                    </div>
+
+                                    <div id="educationExtraFields"></div>
+
+                                    <button class="add-field-btn" data-field-type="education">
+                                        <i class="fas fa-plus-circle"></i> Add New Field
+                                    </button>
+
+                                    <div class="form-navigation">
+                                        <button class="back-button" data-prev="2">Back</button>
+                                        <button class="next-button" data-next="4">Next</button>
                                     </div>
                                 </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="height">Height</label>
-                                        <input type="text" id="height" placeholder="Enter Your Height">
+                            </div>
+
+                            <!-- Step 4: Family Details -->
+                            <div class="form-step" data-step="4">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">
+                                        <span class="user-icon"><i class="fas fa-users"></i></span>
+                                        Family Details
+                                    </h3>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="fatherName">Father's Name</label>
+                                            <input type="text" id="fatherName" placeholder="Enter Your Father's Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="fatherOccupation">Father's Occupation</label>
+                                            <input type="text" id="fatherOccupation"
+                                                placeholder="Enter Your Father's Occupation">
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="weight">Weight</label>
-                                        <input type="text" id="weight" placeholder="Enter Your Weight">
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="motherName">Mother's Name</label>
+                                            <input type="text" id="motherName" placeholder="Enter Your Mother's Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="motherOccupation">Mother's Occupation</label>
+                                            <input type="text" id="motherOccupation"
+                                                placeholder="Enter your Mother's Occupation">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="siblings">Siblings</label>
+                                            <input type="text" id="siblings" placeholder="Number of Siblings you have">
+                                        </div>
+                                    </div>
+
+                                    <div id="familyExtraFields"></div>
+
+                                    <button class="add-field-btn" data-field-type="family">
+                                        <i class="fas fa-plus-circle"></i> Add New Field
+                                    </button>
+
+                                    <div class="form-navigation">
+                                        <button class="back-button" data-prev="3">Back</button>
+                                        <button class="next-button" data-next="5">Next</button>
                                     </div>
                                 </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="blood">Blood Group</label>
-                                        <select id="blood">
-                                            <option value="">Select Blood Group</option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select>
+                            </div>
+
+                            <!-- Step 5: Contact Details -->
+                            <div class="form-step" data-step="5">
+                                <div class="form-section">
+                                    <h3 class="form-section-title">
+                                        <span class="user-icon"><i class="fas fa-address-book"></i></span>
+                                        Contact Details
+                                    </h3>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="contactPerson">Contact Person</label>
+                                            <input type="text" id="contactPerson"
+                                                placeholder="Enter the name of Contact Person">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contactNumber">Contact Number</label>
+                                            <input type="text" id="contactNumber"
+                                                placeholder="Enter the Contact Number">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="emailId">Email ID</label>
+                                            <input type="email" id="emailId" placeholder="Enter Your Email ID">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="address">Residential Address</label>
+                                            <textarea id="address" placeholder="Enter your Residential Address"
+                                                rows="4"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div id="contactExtraFields"></div>
+
+                                    <button class="add-field-btn" data-field-type="contact">
+                                        <i class="fas fa-plus-circle"></i> Add New Field
+                                    </button>
+
+                                    <div class="form-navigation">
+                                        <button class="back-button" data-prev="4">Back</button>
+                                        <button class="submit-button">Submit</button>
                                     </div>
                                 </div>
-                                
-                                <button class="next-button">Next</button>
                             </div>
                         </div>
-                        
+
+                        <!-- Right side - Profile photo section that stays fixed -->
                         <div class="form-right">
                             <h3 class="photo-title">Profile Photo</h3>
                             <div class="photo-upload" id="photoUpload">
                                 <div class="upload-placeholder">
                                     <i class="fas fa-camera"></i>
                                     <p>Click here to add your photo</p>
+                                    <span class="file-size">(Upto 5mb)</span>
                                 </div>
                                 <input type="file" id="photoInput" accept="image/*" style="display: none;">
                             </div>
-                            
+
                             <div class="photo-tips">
-                                <h4>Photo Tips <i class="fas fa-lightbulb"></i></h4>
+                                <h4>Photo Tips <img src="Assets/BeginJourney/light bulb.png" alt="Tips"
+                                        class="tips-icon"></h4>
                                 <ul>
                                     <li>Use a recent clear photo</li>
                                     <li>Choose a neutral background</li>
@@ -272,7 +470,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-decorations">
                         <div class="decoration top-left">
                             <img src="Assets/BeginJourney/flower.png" alt="Flower decoration">
@@ -289,11 +487,11 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="blob-decoration left">
                 <img src="Assets/BeginJourney/Bottom Circle.png" alt="Blob decoration">
             </div>
-            
+
             <div class="blob-decoration right">
                 <img src="Assets/BeginJourney/Up Circle.png" alt="Blob decoration">
             </div>
