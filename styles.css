@@ -1457,6 +1457,8 @@ input[type="time"]::placeholder {
     border-color: #EB810E;
 }
 
+
+
 .form-group textarea {
     resize: vertical;
     min-height: 80px;
@@ -1464,7 +1466,28 @@ input[type="time"]::placeholder {
     border-color: #EB810E;
 }
 
+.input-with-unit {
+    position: relative;
+    display: flex;
+    font-weight: 700;
+    color: #EB810E;
+    align-items: center;
+}
 
+.input-with-unit input {
+    padding-right: 40px; /* Make space for the unit */
+    width: 100%;
+}
+
+.unit {
+    position: absolute;
+    right: 15px;
+    color: #8D3732;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 16px;
+    opacity: 0.7;
+    pointer-events: none;
+}
 
 .form-group textarea::placeholder {
     color: #8D3732;
@@ -1623,10 +1646,14 @@ input[type="time"]::placeholder {
     background-color: #444;
 }
 
+/* Fix for form navigation buttons */
 .form-navigation {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--form-bg);
+  padding: 15px 0;
+  margin-top: 20px;
+  z-index: 10;
 }
 
 .form-navigation .back-button,
@@ -1644,6 +1671,7 @@ input[type="time"]::placeholder {
     text-align: center;
 }
 
+/* Photo upload container styles - FIXED */
 .photo-upload {
     width: 75%;
     height: 200px;
@@ -1657,9 +1685,20 @@ input[type="time"]::placeholder {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    padding: 20px;
-    overflow: hidden;
+    padding: 0; /* Remove padding */
+    overflow: hidden; /* Ensure content stays within bounds */
     background-color: transparent;
+}
+
+
+.photo-upload .upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 }
 
 .photo-upload:hover {
@@ -1909,14 +1948,17 @@ input[type="time"]::placeholder {
     background-color: rgba(139, 69, 19, 0.1);
 }
 
-/* Extra field container */
+/* Fix for extra fields container */
 #educationExtraFields,
 #familyExtraFields,
 #contactExtraFields {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px; /* Add space below extra fields */
+  max-height: 300px; /* Set a max height */
+  overflow-y: auto; /* Make it scrollable if too many fields */
 }
 
 /* Improved extra field styles with single field */
@@ -2180,19 +2222,19 @@ input[type="time"]::placeholder {
 
 .templates-title {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 42px;
+    font-size: 56px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: #000000;
     line-height: 1.2;
 }
 
 .templates-description {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 18px;
+    font-size: 28px;
     line-height: 1.5;
     color: #000000;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 /* Templates Grid */
@@ -2307,5 +2349,505 @@ input[type="time"]::placeholder {
     .load-more-btn {
         padding: 10px 25px;
         font-size: 16px;
+    }
+}
+
+
+/* FAQ Section */
+.faq-section {
+    /* position: relative; */
+    padding: 60px 5% 80px;
+    background-color: #FFA07A; /* Salmon/peach color */
+    overflow: hidden;
+}
+
+.wave-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1;
+    transform: rotate(180deg);
+}
+
+.wave-top svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.faq-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    /* position: relative; */
+    z-index: 2;
+}
+
+.faq-title {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 62px;
+    font-weight: 700;
+    margin-bottom: 60px;
+    color: #000000;
+    text-align: left;
+}
+
+/* Accordion Styles */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+
+.accordion-item {
+    background-color: #FFCFBA; /* Slightly off-white */
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+    border: 3px solid #8D3732;
+}
+
+
+
+.accordion-header {
+    padding: 22px 22px;
+    display: flex;
+   
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header h3 {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.accordion-icon {
+    font-size: 30px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 25px;
+}
+
+.accordion-content p {
+    padding-bottom: 30px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 22px;
+    line-height: 1.6;
+    color: #333333;
+   
+}
+
+.accordion-item.active .accordion-header {
+    background-color: #FFCFBA;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: none;  /* Remove the rotation */
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 300px; /* Adjust based on content */
+}
+
+/* Footer Section */
+.footer {
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 60px 5% 30px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1350px;
+    margin: 0 auto;
+    gap: 100px;
+    margin-bottom: 7%;
+}
+
+.footer-logo-section {
+    flex: 2;
+    max-width: 500px;
+}
+
+.footer .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.footer .logo img {
+    height: 45px;
+    width: auto;
+}
+
+/* Footer logo styles */
+.footer .logo span img {
+    filter: brightness(0) invert(1); /* This will make the SVG white */
+    height: 35px;
+    width: auto;
+}
+
+.couple-icon {
+    font-size: 28px;
+}
+
+.footer-description {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #CCCCCC;
+    max-width: 400px;
+}
+.footer-links {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    justify-content: flex-start;
+}
+
+.footer-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+.footer-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #FFA07A, #FF7F50);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #FFA07A;
+    text-shadow: 0 0 10px rgba(255, 160, 122, 0.3);
+    transform: translateY(-2px);
+}
+
+.footer-link:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.footer-divider {
+    height: 1px;
+    background-color: #EEE9E9;
+    margin: 40px auto;
+    max-width: 1300px;
+}
+
+.footer-copyright {
+    text-align: center;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
+    color: #EEE9E9;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 992px) {
+    .faq-title {
+        font-size: 36px;
+    }
+    
+    .accordion-header h3 {
+        font-size: 16px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .footer-links {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .faq-section {
+        padding: 40px 5% 60px;
+    }
+    
+    .faq-title {
+        font-size: 32px;
+        text-align: center;
+    }
+    
+    .accordion-header {
+        padding: 15px 20px;
+    }
+    
+    .accordion-content p {
+        font-size: 14px;
+    }
+    
+    .footer {
+        padding: 40px 5% 20px;
+    }
+    
+    .footer-logo {
+        font-size: 20px;
+    }
+    
+    .footer-description {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .faq-title {
+        font-size: 28px;
+    }
+    
+    .accordion-header h3 {
+        font-size: 14px;
+    }
+    
+    .accordion-icon {
+        font-size: 20px;
+    }
+    
+    .footer-links {
+        gap: 15px;
+        justify-content: space-between;
+    }
+    
+    .footer-link {
+        font-size: 14px;
+    }
+    
+    .footer-divider {
+        margin: 30px auto;
+    }
+    
+    .footer-copyright {
+        font-size: 12px;
+    }
+}
+/* Image Editor Modal Styles - Fixed version */
+.image-editor-modal {
+    display: none;
+    position: fixed;
+    top: -5%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.editor-content {
+    background-color: #FFF1DC;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid #8B4513;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #8B4513;
+    padding-bottom: 10px;
+}
+
+.editor-header h3 {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 24px;
+    color: #8B4513;
+    margin: 0;
+}
+
+.close-editor {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #8B4513;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-editor:hover {
+    transform: scale(1.2);
+    color: #FF5555;
+}
+
+.editor-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: #000;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 300px;
+}
+
+#editorCanvas {
+    max-width: 100%;
+    max-height: 400px;
+    display: block;
+    background-color: #000;
+}
+
+.editor-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.control-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.crop-options {
+    display: none;
+    gap: 10px;
+}
+
+.editor-btn {
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.editor-btn:hover {
+    background-color: #6B3100;
+    transform: translateY(-2px);
+}
+
+.editor-select {
+    padding: 10px;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 16px;
+    background-color: #FFF8E8;
+    color: #8B4513;
+}
+
+.save-btn {
+    background-color: #4DB25E;
+    /* margin-top: 15px; */
+    padding: 12px 25px;
+    font-weight: bold;
+}
+
+.save-btn:hover {
+    background-color: #3A9A4A;
+}
+
+/* Fix for photo upload container */
+.photo-upload {
+    width: 75%;
+    height: 200px;
+    margin: 0 auto;
+    border: 2px dashed #FF7F50;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 20px;
+    overflow: hidden; /* This ensures the image stays within bounds */
+    background-color: transparent;
+}
+
+.photo-upload img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Changed from cover to contain */
+    border-radius: 10px; /* Add rounded corners to the image */
+}
+
+/* Responsive styles for the editor */
+@media screen and (max-width: 768px) {
+    .editor-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .editor-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-group {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .editor-btn, .editor-select {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .editor-preview {
+        min-height: 200px;
+    }
+    
+    .photo-upload {
+        height: 150px;
     }
 }

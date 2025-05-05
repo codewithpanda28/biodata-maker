@@ -668,3 +668,137 @@ document.addEventListener('DOMContentLoaded', function() {
     // Call the function to create placeholder images
     createPlaceholderImages();
 });
+
+
+// Find the existing accordion functionality in your script.js file
+document.addEventListener('DOMContentLoaded', function() {
+    // Accordion functionality
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        const icon = item.querySelector('.accordion-icon');
+        
+        header.addEventListener('click', () => {
+            // Check if this item is already active
+            const isActive = item.classList.contains('active');
+            
+              // Close all accordion items first
+              accordionItems.forEach(accItem => {
+                accItem.classList.remove('active');
+                const accIcon = accItem.querySelector('.accordion-icon');
+                if (accIcon) {
+                    accIcon.textContent = '+';
+                    accItem.querySelector('.accordion-content').style.maxHeight = '0';
+                }
+            });
+            
+            // If the clicked item wasn't active, open it
+            if (!isActive) {
+                item.classList.add('active');
+                const content = item.querySelector('.accordion-content');
+                if (icon) {
+                    icon.textContent = '-';
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            }
+        });
+    });
+    
+    // ... existing code ...
+
+// Add this to your DOMContentLoaded event listener
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Accordion functionality
+//     const accordionItems = document.querySelectorAll('.accordion-item');
+    
+//     accordionItems.forEach(item => {
+//         const header = item.querySelector('.accordion-header');
+//         const icon = item.querySelector('.accordion-icon');
+        
+//         header.addEventListener('click', () => {
+//             const isActive = item.classList.contains('active');
+            
+//             // Close all accordion items first
+//             accordionItems.forEach(accItem => {
+//                 accItem.classList.remove('active');
+//                 const accIcon = accItem.querySelector('.accordion-icon');
+//                 if (accIcon) {
+//                     accIcon.textContent = '+';
+//                 }
+//             });
+            
+//             // If the clicked item wasn't active, open it
+//             if (!isActive) {
+//                 item.classList.add('active');
+//                 if (icon) {
+//                     icon.textContent = '-';
+//                 }
+//             }
+//         });
+//     });
+// });
+
+// ... rest of your code ...
+    document.addEventListener('DOMContentLoaded', function() {
+    // Accordion functionality
+    const accordionItems = document.querySelectorAll('.accordion-item');
+    
+    accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+        
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all accordion items first
+            accordionItems.forEach(accItem => {
+                accItem.classList.remove('active');
+                accItem.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+});
+    
+    // Add animation to FAQ section when it comes into view
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+    
+    function animateOnScroll() {
+        const faqSection = document.querySelector('.faq-section');
+        const accordionItemsForAnimation = document.querySelectorAll('.accordion-item');
+        
+        if (faqSection && isInViewport(faqSection)) {
+            // Add staggered animation to accordion items
+            accordionItemsForAnimation.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        }
+    }
+    
+    // Set initial state for animations
+    const accordionItemsForInitialState = document.querySelectorAll('.accordion-item');
+    accordionItemsForInitialState.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    // Run animations on load and scroll
+    animateOnScroll();
+    window.addEventListener('scroll', animateOnScroll);
+});
