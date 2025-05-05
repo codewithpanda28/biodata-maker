@@ -610,3 +610,61 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all template cards and the load more button
+    const templateCards = document.querySelectorAll('.template-card');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    
+    // Track which batch of templates we're showing
+    let currentBatch = 1;
+    const templatesPerBatch = 3;
+    const totalBatches = Math.ceil(templateCards.length / templatesPerBatch);
+    
+    // Function to show a specific batch of templates
+    function showTemplateBatch(batchNumber) {
+        const startIndex = (batchNumber - 1) * templatesPerBatch;
+        const endIndex = startIndex + templatesPerBatch;
+        
+        // Show templates for the current batch
+        for (let i = startIndex; i < endIndex && i < templateCards.length; i++) {
+            templateCards[i].classList.remove('hidden');
+            
+            // Add fade-in animation
+            templateCards[i].style.opacity = '0';
+            templateCards[i].style.transform = 'translateY(20px)';
+            
+            // Staggered animation
+            setTimeout(() => {
+                templateCards[i].style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                templateCards[i].style.opacity = '1';
+                templateCards[i].style.transform = 'translateY(0)';
+            }, (i - startIndex) * 150);
+        }
+        
+        // Update button text or hide if we've shown all templates
+        if (batchNumber >= totalBatches) {
+            loadMoreBtn.textContent = 'All Templates Loaded';
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.style.opacity = '0.7';
+            loadMoreBtn.style.cursor = 'default';
+        }
+    }
+    
+    // Initialize - show first batch
+    showTemplateBatch(1);
+    
+    // Load more button click handler
+    loadMoreBtn.addEventListener('click', function() {
+        if (currentBatch < totalBatches) {
+            currentBatch++;
+            showTemplateBatch(currentBatch);
+        }
+    });
+    
+    // Create placeholder images for templates
+ 
+    
+    // Call the function to create placeholder images
+    createPlaceholderImages();
+});
