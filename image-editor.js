@@ -1,4 +1,4 @@
-// Fixed image editor with proper cropping display
+// Complete rewrite of image editor with proper cropping functionality
 document.addEventListener('DOMContentLoaded', function() {
     // DOM Elements
     const photoInput = document.getElementById('photoInput');
@@ -28,15 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button id="rotateLeftBtn" class="editor-btn">↺ Rotate Left</button>
                     <button id="rotateRightBtn" class="editor-btn">↻ Rotate Right</button>
                 </div>
-                <div class="control-group">
-                    <select id="filterSelect" class="editor-select">
-                        <option value="none">No Filter</option>
-                        <option value="grayscale">Grayscale</option>
-                        <option value="sepia">Sepia</option>
-                        <option value="brightness">Brightness</option>
-                        <option value="contrast">Contrast</option>
-                    </select>
-                </div>
                 <button id="saveImageBtn" class="editor-btn save-btn">Save Image</button>
             </div>
         </div>
@@ -46,13 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Editor variables
     let canvas = document.getElementById('editorCanvas');
     let ctx = canvas.getContext('2d');
-    let currentImage = null;
     let originalImage = null;
+    let currentImage = null;
     let rotation = 0;
-    let currentFilter = 'none';
     let isCropping = false;
     let cropStartX, cropStartY, cropWidth, cropHeight;
-    let finalCroppedImage = null;
+    let croppedImageData = null;
     
     // Close button functionality
     const closeBtn = document.querySelector('.close-editor');
@@ -71,10 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Load the image into the canvas
                 const img = new Image();
-                img.crossOrigin = "anonymous"; // Prevent CORS issues
                 img.onload = function() {
-                    currentImage = img;
                     originalImage = img;
+                    currentImage = img;
                     resetEditor();
                     drawImage();
                 };
@@ -88,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize canvas size
     function resetEditor() {
         rotation = 0;
-        currentFilter = 'none';
         isCropping = false;
+        croppedImageData = null;
         
         // Set canvas size based on image and available space
         const maxWidth = Math.min(window.innerWidth * 0.8, 600);
@@ -115,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         canvas.height = height;
     }
     
-    // Draw the image on canvas with current rotation and filter
+    // Draw the image on canvas with current rotation
     function drawImage() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
@@ -147,11 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         ctx.drawImage(currentImage, offsetX, offsetY, drawWidth, drawHeight);
         
-        // Apply filters
-        if (currentFilter !== 'none') {
-            applyFilter();
-        }
-        
         // Draw crop overlay if in crop mode
         if (isCropping && cropWidth && cropHeight) {
             ctx.strokeStyle = '#ffffff';
@@ -169,51 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Restore context state
         ctx.restore();
-    }
-    
-    // Apply selected filter
-    function applyFilter() {
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
-        
-        switch(currentFilter) {
-            case 'grayscale':
-                for (let i = 0; i < data.length; i += 4) {
-                    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                    data[i] = avg; // red
-                    data[i + 1] = avg; // green
-                    data[i + 2] = avg; // blue
-                }
-                break;
-            case 'sepia':
-                for (let i = 0; i < data.length; i += 4) {
-                    const r = data[i];
-                    const g = data[i + 1];
-                    const b = data[i + 2];
-                    
-                    data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
-                    data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
-                    data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
-                }
-                break;
-            case 'brightness':
-                for (let i = 0; i < data.length; i += 4) {
-                    data[i] = Math.min(255, data[i] * 1.2);
-                    data[i + 1] = Math.min(255, data[i + 1] * 1.2);
-                    data[i + 2] = Math.min(255, data[i + 2] * 1.2);
-                }
-                break;
-            case 'contrast':
-                const factor = 259 * (100 + 50) / (255 * (259 - 50));
-                for (let i = 0; i < data.length; i += 4) {
-                    data[i] = Math.min(255, Math.max(0, factor * (data[i] - 128) + 128));
-                    data[i + 1] = Math.min(255, Math.max(0, factor * (data[i + 1] - 128) + 128));
-                    data[i + 2] = Math.min(255, Math.max(0, factor * (data[i + 2] - 128) + 128));
-                }
-                break;
-        }
-        
-        ctx.putImageData(imageData, 0, 0);
     }
     
     // Crop functionality
@@ -395,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
         );
         
         // Store the cropped image data
-        finalCroppedImage = tempCanvas.toDataURL('image/png');
+        croppedImageData = tempCanvas.toDataURL('image/png');
         
         // Create a new image from the cropped canvas
         const newImage = new Image();
@@ -407,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Exit crop mode
             exitCropMode();
         };
-        newImage.src = finalCroppedImage;
+        newImage.src = croppedImageData;
     });
     
     cancelCropBtn.addEventListener('click', exitCropMode);
@@ -439,16 +378,10 @@ document.addEventListener('DOMContentLoaded', function() {
         drawImage();
     });
     
-    // Filter functionality
-    document.getElementById('filterSelect').addEventListener('change', function() {
-        currentFilter = this.value;
-        drawImage();
-    });
-    
     // Save functionality - FIXED to show only cropped portion
     document.getElementById('saveImageBtn').addEventListener('click', function() {
         // Get the final image data - use the cropped image if available
-        const finalImage = finalCroppedImage || canvas.toDataURL('image/jpeg', 0.9);
+        const finalImage = croppedImageData || canvas.toDataURL('image/jpeg', 0.9);
         
         // Update all photo upload areas with the edited image
         photoUploads.forEach(upload => {
@@ -464,29 +397,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 oldImg.remove();
             }
             
-            // Create a container div to properly contain the image
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'photo-container';
-            imgContainer.style.width = '100%';
-            imgContainer.style.height = '100%';
-            imgContainer.style.display = 'flex';
-            imgContainer.style.alignItems = 'center';
-            imgContainer.style.justifyContent = 'center';
-            
-            // Add the new image
+            // Create a new image element
             const img = document.createElement('img');
             img.src = finalImage;
             img.style.maxWidth = '100%';
             img.style.maxHeight = '100%';
-            img.style.objectFit = 'contain';
+            img.style.objectFit = 'cover';
             img.style.borderRadius = '10px';
             
-            imgContainer.appendChild(img);
-            upload.appendChild(imgContainer);
+            // Add the image directly to the upload container
+            upload.appendChild(img);
         });
-        
-        // Reset the cropped image reference
-        finalCroppedImage = null;
         
         // Close the editor
         editorModal.style.display = 'none';

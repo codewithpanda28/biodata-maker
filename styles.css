@@ -50,14 +50,14 @@ body {
 /* Background Circles */
 .left-circle {
     position: absolute;
-    top: 15%;
+    top: 7%;
     width: 300px;
     height: 300px;
     background-image: url('Assets/Navbar/Logo\ Left\ Circle.svg');
     background-repeat: no-repeat;
     background-size: contain;
     z-index: -1;
-    opacity: 0.8;
+    /* opacity: 0.8; */
     animation: floatCircle 15s ease-in-out infinite;
 }
 
@@ -71,7 +71,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
-    opacity: 0.8;
+    /* opacity: 0.8; */
     animation: floatCircle 18s ease-in-out infinite reverse;
 }
 
@@ -1205,7 +1205,7 @@ h1 {
 @media screen and (max-width: 768px){
     .how-it-works-section {
         margin-top: 0px;
-        padding: 100px 5% 100px;
+        padding: 40px 5% 100px;
       
     }
 }
@@ -1277,6 +1277,15 @@ h1 {
     height: 80%;
     border-radius: 50%;
     object-fit: contain;
+}
+/* responsive in mobile devices */
+@media screen and (max-width: 768px) {
+    .step-icon {
+        width: 70%;
+        height: 70%;
+        border-radius: 50%;
+        object-fit: contain;
+    }
 }
 
 .step-number {
@@ -1790,8 +1799,8 @@ input[type="time"]::placeholder {
 
 .form-decorations .decoration {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     z-index: 3;
 }
 
@@ -1830,15 +1839,15 @@ input[type="time"]::placeholder {
 }
 
 .blob-decoration.left {
-    bottom: -50px;
-    left: -100px;
+    bottom: -10px;
+    left: -35px;
     width: 300px;
     height: 300px;
-    opacity: 0.5;
+    /* opacity: 0.5; */
 }
 
 .blob-decoration.right {
-    top: 55%;
+    top: 41%;
     right: -0px;
     transform: translateY(-50%);
     width: 500px;
@@ -1979,6 +1988,14 @@ input[type="time"]::placeholder {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .form-decorations .decoration {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+    
+        z-index: 3;
     }
 }
 
@@ -2277,20 +2294,22 @@ input[type="time"]::placeholder {
     background-color: #5E3FA5; /* Purple button */
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 12px 60px;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 500;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 20px;
+    /* add shadow in y axis*/
+    box-shadow: 5px 5px 1px black;
 }
 
 .load-more-btn:hover {
     background-color: #4E2F95;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 3px 1px black;
 }
 
 .load-more-btn:active {
@@ -2662,7 +2681,7 @@ input[type="time"]::placeholder {
 .image-editor-modal {
     display: none;
     position: fixed;
-    top: -5%;
+    top: -8%;
     left: 0;
     width: 100%;
     height: 100%;
@@ -2795,6 +2814,20 @@ input[type="time"]::placeholder {
     background-color: #3A9A4A;
 }
 
+.biodata-form-container {
+    scroll-margin-top: 100px; /* Adds some space at the top when scrolling */
+}
+
+@keyframes highlightForm {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.biodata-form-container.highlight {
+    animation: highlightForm 0.5s ease-in-out;
+}
+
 /* Fix for photo upload container */
 .photo-upload {
     width: 75%;
@@ -2809,7 +2842,7 @@ input[type="time"]::placeholder {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    padding: 20px;
+    padding: 10px;
     overflow: hidden; /* This ensures the image stays within bounds */
     background-color: transparent;
 }

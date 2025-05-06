@@ -49,6 +49,23 @@ links.forEach(link => {
     });
 });
 
+// Add this function to handle smooth scrolling to the form
+function scrollToForm() {
+    const formSection = document.querySelector('.biodata-form-container');
+    if (formSection) {
+        formSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Optional: Add highlight effect
+        formSection.classList.add('highlight');
+        setTimeout(() => {
+            formSection.classList.remove('highlight');
+        }, 1000);
+    }
+}
+
 // Photo upload functionality for all photo upload areas
 document.addEventListener('DOMContentLoaded', () => {
     const photoUploads = document.querySelectorAll('.photo-upload');
